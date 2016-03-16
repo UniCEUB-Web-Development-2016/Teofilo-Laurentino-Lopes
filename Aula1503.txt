@@ -1,0 +1,4 @@
+Caio,
+
+Consegui fazer a chamada de página LayoutManager.js depois chamando LayoutControl.js e no fim a página HTML para o
+usuário fazer cadastro. Depois disso não consegui continuar.
