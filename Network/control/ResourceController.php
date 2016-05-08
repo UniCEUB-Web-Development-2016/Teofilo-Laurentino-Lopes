@@ -17,6 +17,11 @@ class ResourceController
 
 	public function createResource($request)
 	{
-		return (new $this->controlMap[strtolower($request->get_resource())])->register($request);
+		return (new $this->controlMap[strtolower($request->get_resource())]())->register($request);
+	}
+	
+	public function searchResource($request)
+	{
+		return (new $this->controlMap[strtolower($request->get_resource())]())->search($request);
 	}
 }

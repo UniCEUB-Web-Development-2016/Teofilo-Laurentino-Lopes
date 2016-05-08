@@ -9,11 +9,11 @@ class PhotoController
     public function register($request)
     {
         $params = $request->get_params();
-        $photo = new Photo($params["id_photo"],
-            $params["name_photo"],
-            $params["name_album"]);
+        $photo = new Photo($params["owner"],
+            $params["name_album"],
+			$params["description"]);
 
-        $db = new DatabaseConnector("localhost", "facebook", "mysql", "", "root", "");
+        $db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 
         $conn = $db->getConnection();
 
@@ -22,11 +22,32 @@ class PhotoController
     }
     private function generateInsertQuery($photo)
     {
-        $query =  "INSERT INTO photo (id_photo, name_photo, name_album) VALUES ('".
-            $photo->get_idPhoto()."','".
-            $photo->get_namePhoto()."','".
-            $photo->get_nameAlbum()."')";
+        $query =  "INSERT INTO photo (owner, name_album, description) VALUES ('".
+            $photo->get_ownerPhoto()."','".
+            $photo->get_nameAlbum()."','".
+            $photo->get_descriptionPhoto()."')";
         return $query;
     }
+	
+	public function search($request)
+	{
+		$params = $request->get_params();
+		$crit = $this->generateCriteria($params);
+		$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
+		$conn = $db->getConnection();
+		$result = $conn->query("SELECT owner, name_album, description FROM photo WHERE ".$crit);
+		//foreach($result as $row) 
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	private function generateCriteria($params) 
+	{
+		$criteria = "";
+		foreach($params as $key => $value)
+		{
+			$criteria = $criteria.$key." LIKE '%".$value."%' OR ";
+		}
+		return substr($criteria, 0, -4);	
+	}	
 }
 

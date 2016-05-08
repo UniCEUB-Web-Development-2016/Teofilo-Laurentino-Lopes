@@ -3,37 +3,26 @@
 class Photo
 {
 
-	private $id_photo;
-	private $name_photo;
+	private $owner;
 	private $name_album;
+	private $description;
 
 
-	public function __construct($id_photo, $name_photo, $name_album)
+	public function __construct($owner, $name_album, $description)
 	{
-		$this->set_idPhoto($id_photo);
-		$this->set_namePhoto($name_photo);
+		$this->set_ownerPhoto($owner);
 		$this->set_nameAlbum($name_album);
+		$this->set_descriptionPhoto($description);
 	}
 
-
-	private function set_idPhoto($id_photo)
+	private function set_ownerPhoto($owner)
 	{
-		$this->id_photo = $id_photo;
+		$this->owner = $owner;
 	}
 
-	public function get_idPhoto()
+	public function get_ownerPhoto()
 	{
-		return $this->id_photo;
-	}
-
-	private function set_namePhoto($name_photo)
-	{
-		$this->name_photo = $name_photo;
-	}
-
-	public function get_namePhoto()
-	{
-		return $this->name_photo;
+		return $this->owner;
 	}
 
 	private function set_nameAlbum($name_album)
@@ -44,5 +33,15 @@ class Photo
 	public function get_nameAlbum()
 	{
 		return $this->name_album;
+	}
+	
+	private function set_descriptionPhoto($description)
+	{
+		$this->description = $description;
+	}
+
+	public function get_descriptionPhoto()
+	{
+		return $this->description;
 	}
 }
