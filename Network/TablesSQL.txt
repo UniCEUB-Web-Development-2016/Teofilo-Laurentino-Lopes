@@ -1,31 +1,69 @@
--- -----------------------------------------------------
--- Table `bd_network`.`user`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `bd_network`.`user` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `firstName` VARCHAR(45) NOT NULL ,
-  `lastName` VARCHAR(45) NOT NULL ,
-  `age` INT NOT NULL ,
-  `country` VARCHAR(45) NOT NULL ,
-  `login` VARCHAR(45) NOT NULL ,
-  `birthday` DATE NOT NULL ,
-  `password` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`id`) )
+-- -----------------------------------------------------
 
--- -----------------------------------------------------
--- Table `bd_network`.`group`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `bd_network`.`group` (
-  `id_group` INT NOT NULL AUTO_INCREMENT ,
-  `groupName` VARCHAR(45) NOT NULL ,
-  `owner` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`id_group`) )
-
--- -----------------------------------------------------
--- Table `bd_network`.`photo`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `bd_network`.`photo` (
-  `id_photo` INT NOT NULL AUTO_INCREMENT ,
-  `namePhoto` VARCHAR(45) NOT NULL ,
-  `nameAlbum` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`id_photo`) )
+-- Table `network`.`user`
+
+-- -----------------------------------------------------
+
+CREATE  TABLE IF NOT EXISTS `network`.`user` (
+
+  `id` INT NOT NULL AUTO_INCREMENT ,
+
+  `firstName` VARCHAR(45) NOT NULL ,
+
+  `lastName` VARCHAR(45) NOT NULL ,
+
+  `age` INT NOT NULL ,
+
+  `country` VARCHAR(45) NOT NULL ,
+
+  `birthday` DATE NOT NULL ,  
+
+  `email` VARCHAR(45) NOT NULL ,
+
+  `login` VARCHAR(45) NOT NULL ,
+
+  `password` VARCHAR(45) NOT NULL ,
+
+  PRIMARY KEY (`id`) )
+
+
+-- -----------------------------------------------------
+
+-- Table `network`.`group`
+
+-- -----------------------------------------------------
+
+CREATE  TABLE IF NOT EXISTS `network`.`group` (
+
+  `id` INT NOT NULL AUTO_INCREMENT ,
+
+  `groupName` VARCHAR(45) NOT NULL ,
+
+  `owner` VARCHAR(45) NOT NULL ,
+
+  `numberParticipants` INT NOT NULL ,
+
+  `category` VARCHAR(45) NOT NULL ,
+
+  PRIMARY KEY (`id`) )
+
+
+
+-- -----------------------------------------------------
+
+-- Table `network`.`photo`
+
+-- -----------------------------------------------------
+
+CREATE  TABLE IF NOT EXISTS `network`.`photo` (
+
+  `id` INT NOT NULL AUTO_INCREMENT ,
+
+  `owner` VARCHAR(45) NOT NULL ,
+
+  `name_album` VARCHAR(45) NOT NULL ,
+
+  `description` VARCHAR(45) NOT NULL ,
+
+  PRIMARY KEY (`id`) )
+
