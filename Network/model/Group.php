@@ -3,55 +3,55 @@
 class Group
 {
 
-	private $group_name;
+	private $groupName;
 	private $owner;
-	private $number_participants;
+	private $numberParticipants;
 	private $category;
 
-	public function __construct($group_name, $owner, $number_participants, $category)
+	public function __construct($groupName, $owner, $numberParticipants, $category)
 	{
-		$this->set_groupName($group_name);
-		$this->set_owner($owner);
-		$this->set_numberParticipants($number_participants);
-		$this->set_category($category);
+		$this->set_groupName($groupName);
+		$this->set_ownerGroup($owner);
+		$this->set_numberParticipantsGroup($numberParticipants);
+		$this->set_categoryGroup($category);
 	}
 
-	private function set_groupName($group_name)
+	private function set_groupName($groupName)
 	{
-		$this->group_name = $group_name;
+		$this->groupName = $groupName;
 	}
 
 	public function get_groupName()
 	{
-		return $this->group_name;
+		return $this->groupName;
 	}
 
-	private function set_owner($owner)
+	private function set_ownerGroup($owner)
 	{
 		$this->owner = $owner;
 	}
 
-	public function get_owner()
+	public function get_ownerGroup()
 	{
 		return $this->owner;
 	}
 	
-	private function set_numberParticipants($number_participants)
+	private function set_numberParticipantsGroup($numberParticipants)
 	{
-		$this->number_participants = $number_participants;
+		$this->numberParticipants = $numberParticipants;
 	}
 
-	public function get_numberParticipants()
+	public function get_numberParticipantsGroup()
 	{
-		return $this->number_participants;
+		return $this->numberParticipants;
 	}
 	
-	private function set_category($category)
+	private function set_categoryGroup($category)
 	{
 		$this->category = $category;
 	}
 
-	public function get_category()
+	public function get_categoryGroup()
 	{
 		return $this->category;
 	}
