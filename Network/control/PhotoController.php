@@ -69,7 +69,7 @@ class PhotoController
 			$params = $request->get_params();
 			$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 			$conn = $db->getConnection();
-			$result = $conn->prepare("UPDATE photo SET onwer=:owner, name_album=:nameAlbum, description=:description WHERE id=:id");
+			$result = $conn->prepare("UPDATE photo SET owner=:owner, name_album=:nameAlbum, description=:description WHERE id=:id");
 			$result->bindValue(":owner", $owner);
 			$result->bindValue(":nameAlbum", $nameAlbum);
 			$result->bindValue(":description", $description);

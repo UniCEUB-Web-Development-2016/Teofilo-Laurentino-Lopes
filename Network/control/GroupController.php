@@ -30,7 +30,7 @@ class GroupController
     
 	private function generateInsertQuery($group)
     {
-        $query = "INSERT INTO community (groupName, owner, numberParticipants, category) VALUES ('".
+        $query = "INSERT INTO group_friends (groupName, owner, numberParticipants, category) VALUES ('".
             $group->get_groupName()."','".
             $group->get_owner()."','".
 			$group->get_numberParticipants()."','".
@@ -46,7 +46,7 @@ class GroupController
 		$crit = $this->generateCriteria($params);
 		$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 		$conn = $db->getConnection();
-		$result = $conn->query("SELECT groupName, owner, numberParticipants, category FROM community WHERE ".$crit);
+		$result = $conn->query("SELECT groupName, owner, numberParticipants, category FROM group_friends WHERE ".$crit);
 		//foreach($result as $row) 
 		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -74,7 +74,7 @@ class GroupController
 			$params = $request->get_params();
 			$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 			$conn = $db->getConnection();
-			$result = $conn->prepare("UPDATE community SET groupName=:group, owner=:owner, numberParticipants=:participants, category=:category WHERE id=:id");
+			$result = $conn->prepare("UPDATE group_friends SET groupName=:group, owner=:owner, numberParticipants=:participants, category=:category WHERE id=:id");
 			$result->bindValue(":group", $group);
 			$result->bindValue(":owner", $owner);
 			$result->bindValue(":participants", $participants);
@@ -98,7 +98,7 @@ class GroupController
 			$params = $request->get_params();
 			$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 			$conn = $db->getConnection();
-			$result = $conn->prepare("DELETE FROM community WHERE id = ?");
+			$result = $conn->prepare("DELETE FROM group_friends WHERE id = ?");
 			$result->bindValue(1, $id);
 			$result->execute();
 			if ($result->rowCount() > 0){

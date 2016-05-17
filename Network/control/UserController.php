@@ -69,22 +69,32 @@ class UserController
 
 	public function update($request)
 	{
-		if(!empty($_GET["id"]) && !empty($_GET["firstName"]) && !empty($_GET["lastName"]) && !empty($_GET["email"]) && !empty($_GET["age"])) {
+		if(!empty($_GET["id"]) && !empty($_GET["firstName"]) && !empty($_GET["lastName"]) && !empty($_GET["age"]) &&
+            !empty($_GET["country"]) && !empty($_GET["birthday"]) && !empty($_GET["email"]) && !empty($_GET["login"]) && !empty($_GET["password"])) {
 
             $name = addslashes(trim($_GET["firstName"]));
             $secondName = addslashes(trim($_GET["lastName"]));
-            $email = addslashes(trim($_GET["email"]));
             $age = addslashes(trim($_GET["age"]));
+            $country = addslashes(trim($_GET["country"]));
+            $birthday = addslashes(trim($_GET["birthday"]));
+            $email = addslashes(trim($_GET["email"]));
+            $login = addslashes(trim($_GET["login"]));
+            $password = addslashes(trim($_GET["password"]));
             $id = addslashes(trim($_GET["id"]));
 
             $params = $request->get_params();
             $db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
             $conn = $db->getConnection();
-            $result = $conn->prepare("UPDATE user SET firstName=:name, lastName=:secondName, email=:email, age=:age WHERE id=:id");
+            $result = $conn->prepare("UPDATE user SET firstName=:name, lastName=:secondName, age=:age, country=:country, birthday=:birthday,
+            email=:email, login=:login, password=:password WHERE id=:id");
             $result->bindValue(":name", $name);
             $result->bindValue(":secondName", $secondName);
-            $result->bindValue(":email", $email);
             $result->bindValue(":age", $age);
+            $result->bindValue(":country", $country);
+            $result->bindValue(":birthday", $birthday);
+            $result->bindValue(":email", $email);
+            $result->bindValue(":login", $login);
+            $result->bindValue(":password", $password);
             $result->bindValue(":id", $id);
             $result->execute();
             if ($result->rowCount() > 0){
