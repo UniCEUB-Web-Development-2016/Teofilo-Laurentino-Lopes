@@ -33,8 +33,8 @@ class UserController
 
     private function generateInsertQuery($user)
     {
-        $query =  "INSERT INTO user (firstName, lastName, age, country, birthday, email, login, password)
-						VALUES ('".$user->get_firstNameUser()."','".
+        $query =  "INSERT INTO user (firstName, lastName, age, country, birthday, email, login, password) VALUES ('".
+            $user->get_firstNameUser()."','".
             $user->get_lastNameUser()."','".
             $user->get_ageUser()."','".
             $user->get_countryUser()."','".

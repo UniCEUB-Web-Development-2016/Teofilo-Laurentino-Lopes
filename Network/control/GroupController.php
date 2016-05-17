@@ -30,12 +30,13 @@ class GroupController
     
 	private function generateInsertQuery($group)
     {
-        $query =  "INSERT INTO group (groupName, owner, numberParticipants, category) VALUES ('".
+        $query = "INSERT INTO community (groupName, owner, numberParticipants, category) VALUES ('".
             $group->get_groupName()."','".
-            $group->get_ownerGroup()."','".
-			$group->get_numberParticipantsGroup()."','".
-			$group->get_categoryGroup()."')";
+            $group->get_owner()."','".
+			$group->get_numberParticipants()."','".
+			$group->get_category()."')";
         // var_dump($query);
+		// die();
         return $query;
     }
 	
@@ -45,7 +46,7 @@ class GroupController
 		$crit = $this->generateCriteria($params);
 		$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 		$conn = $db->getConnection();
-		$result = $conn->query("SELECT groupName, owner, numberParticipants, category FROM group WHERE ".$crit);
+		$result = $conn->query("SELECT groupName, owner, numberParticipants, category FROM community WHERE ".$crit);
 		//foreach($result as $row) 
 		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -73,7 +74,7 @@ class GroupController
 			$params = $request->get_params();
 			$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 			$conn = $db->getConnection();
-			$result = $conn->prepare("UPDATE group SET groupName=:group, owner=:owner, numberParticipants=:participants, category=:category WHERE id=:id");
+			$result = $conn->prepare("UPDATE community SET groupName=:group, owner=:owner, numberParticipants=:participants, category=:category WHERE id=:id");
 			$result->bindValue(":group", $group);
 			$result->bindValue(":owner", $owner);
 			$result->bindValue(":participants", $participants);
@@ -97,7 +98,7 @@ class GroupController
 			$params = $request->get_params();
 			$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 			$conn = $db->getConnection();
-			$result = $conn->prepare("DELETE FROM group WHERE id = ?");
+			$result = $conn->prepare("DELETE FROM community WHERE id = ?");
 			$result->bindValue(1, $id);
 			$result->execute();
 			if ($result->rowCount() > 0){
@@ -117,6 +118,4 @@ class GroupController
 			return true;
 		return false;
 	}
-
 }
-

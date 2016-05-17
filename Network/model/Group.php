@@ -11,9 +11,9 @@ class Group
 	public function __construct($groupName, $owner, $numberParticipants, $category)
 	{
 		$this->set_groupName($groupName);
-		$this->set_ownerGroup($owner);
-		$this->set_numberParticipantsGroup($numberParticipants);
-		$this->set_categoryGroup($category);
+		$this->set_owner($owner);
+		$this->set_numberParticipants($numberParticipants);
+		$this->set_category($category);
 	}
 
 	private function set_groupName($groupName)
@@ -26,32 +26,32 @@ class Group
 		return $this->groupName;
 	}
 
-	private function set_ownerGroup($owner)
+	private function set_owner($owner)
 	{
 		$this->owner = $owner;
 	}
 
-	public function get_ownerGroup()
+	public function get_owner()
 	{
 		return $this->owner;
 	}
 	
-	private function set_numberParticipantsGroup($numberParticipants)
+	private function set_numberParticipants($numberParticipants)
 	{
 		$this->numberParticipants = $numberParticipants;
 	}
 
-	public function get_numberParticipantsGroup()
+	public function get_numberParticipants()
 	{
 		return $this->numberParticipants;
 	}
 	
-	private function set_categoryGroup($category)
+	private function set_category($category)
 	{
 		$this->category = $category;
 	}
 
-	public function get_categoryGroup()
+	public function get_category()
 	{
 		return $this->category;
 	}
