@@ -6,7 +6,7 @@ include_once "database/DatabaseConnector.php";
 
 class GroupController
 {
-	private $requiredParameters = array('groupName', 'owner', 'numberParticipants', 'category');
+	private $requiredParameters = array('groupName', 'owner', 'category');
 
     public function register($request)
     {
@@ -14,7 +14,6 @@ class GroupController
 		if ($this->isValid($params)) {
         $group = new Group($params["groupName"],
             $params["owner"],
-			$params["numberParticipants"],
 			$params["category"]);
 
         $db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
@@ -30,10 +29,9 @@ class GroupController
     
 	private function generateInsertQuery($group)
     {
-        $query = "INSERT INTO group_friends (groupName, owner, numberParticipants, category) VALUES ('".
+        $query = "INSERT INTO group_friends (groupName, owner, category) VALUES ('".
             $group->get_groupName()."','".
             $group->get_owner()."','".
-			$group->get_numberParticipants()."','".
 			$group->get_category()."')";
         // var_dump($query);
 		// die();
@@ -46,7 +44,7 @@ class GroupController
 		$crit = $this->generateCriteria($params);
 		$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 		$conn = $db->getConnection();
-		$result = $conn->query("SELECT groupName, owner, numberParticipants, category FROM group_friends WHERE ".$crit);
+		$result = $conn->query("SELECT id, groupName, owner, category FROM group_friends WHERE ".$crit);
 		//foreach($result as $row) 
 		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -63,50 +61,35 @@ class GroupController
 
 	public function update($request)
 	{
-		if(!empty($_GET["id"]) && !empty($_GET["groupName"]) && !empty($_GET["owner"]) && !empty($_GET["numberParticipants"]) && !empty($_GET["category"])) {
+		$params = $request->get_params();
+		$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
+		$conn = $db->getConnection();
+		return $conn->query($this->generateUpdateQuery($params));
+	}
 
-			$group = addslashes(trim($_GET["groupName"]));
-			$owner = addslashes(trim($_GET["owner"]));
-			$participants = addslashes(trim($_GET["numberParticipants"]));
-			$category = addslashes(trim($_GET["category"]));
-			$id = addslashes(trim($_GET["id"]));
+	private function generateUpdateQuery($params)
+	{
+		$crit = $this->generateUpdateCriteria($params);
+		return "UPDATE group_friends SET " . $crit . " WHERE groupName = '" . $params["groupName"] . "'OR owner = '".$params['owner']. "'OR category = '".$params['category']."'";
+	}
 
-			$params = $request->get_params();
-			$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
-			$conn = $db->getConnection();
-			$result = $conn->prepare("UPDATE group_friends SET groupName=:group, owner=:owner, numberParticipants=:participants, category=:category WHERE id=:id");
-			$result->bindValue(":group", $group);
-			$result->bindValue(":owner", $owner);
-			$result->bindValue(":participants", $participants);
-			$result->bindValue(":category", $category);
-			$result->bindValue(":id", $id);
-			$result->execute();
-			if ($result->rowCount() > 0){
-				echo "Grupo alterado com sucesso!";
-			} else {
-				echo "Grupo não atualizado";
-			}
+	private function generateUpdateCriteria($params)
+	{
+		$criteria = "";
+		foreach ($params as $key => $value) {
+			$criteria = $criteria . $key . " = '" . $value . "' ,";
 		}
+		return substr($criteria, 0, -2);
 	}
 
 	public function delete($request)
 	{
-		if (!empty($_GET["id"])){
-
-			$id = addslashes(trim($_GET["id"]));
-
-			$params = $request->get_params();
-			$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
-			$conn = $db->getConnection();
-			$result = $conn->prepare("DELETE FROM group_friends WHERE id = ?");
-			$result->bindValue(1, $id);
-			$result->execute();
-			if ($result->rowCount() > 0){
-				echo "Grupo deletado com sucesso!";
-			} else {
-				echo "Grupo não deletado";
-			}
-		}
+		$params = $request->get_params();
+		$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
+		$conn = $db->getConnection();
+		$result = $conn->query("DELETE FROM group_friends WHERE id = ".$params["id"]);
+		//foreach($result as $row)
+		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	private function isValid($parameters)

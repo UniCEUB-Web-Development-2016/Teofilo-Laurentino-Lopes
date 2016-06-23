@@ -29,15 +29,8 @@ class RequestController
 
 		foreach ($b as $value) {
 			$c = explode("=", $value);
-
 			$params_map[$c[0]] = $c[1];
 		}
-		return $params_map;	
+		return $params_map;
 	}
-
-
-
-
-
-
 }

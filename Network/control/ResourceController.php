@@ -4,6 +4,7 @@ include_once "model/Request.php";
 include_once "control/UserController.php";
 include_once "control/GroupController.php";
 include_once "control/PhotoController.php";
+include_once "control/MessageController.php";
 
 class ResourceController
 {
@@ -13,6 +14,7 @@ class ResourceController
 		"user" => "UserController",
 		"group" => "GroupController",
 		"photo" => "PhotoController",
+		"message" => "MessageController",
 	];
 
 	public function createResource($request)

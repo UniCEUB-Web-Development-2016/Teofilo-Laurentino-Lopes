@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html ng-app="loginUser" lang="pt-br">
+<head>
+  <meta charset = "UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="../js/validation.js"></script>
+  <title>Network</title>
+</head>
+<body id="bd" ng-controller="loginUserCtrl">
+<div id="header">
+  <h2>Sign in to Network</h2>
+</div>
+  <form method="POST" action = "">
+    <input type = "text" name="name" id="field" ng-model="user.firstName" placeholder="Name" required><br>
+    <input type = "password" name= "password" ng-model="user.password" id="field" placeholder="Password" required="jdbkwjqndkwq"><br>
+    <div id="checkbox">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <input class="btn btn-primary" ng-click="loginUser(user)" id="button" type="button" value="Sign in">
+  </form>
+    <div id="register_form">
+      New Here?
+      <a href="register.html">Create an account</a>
+    </div>
+</div>
+</body>
+</html>

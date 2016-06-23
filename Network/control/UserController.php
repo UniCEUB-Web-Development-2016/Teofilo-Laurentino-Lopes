@@ -6,7 +6,7 @@ include_once "database/DatabaseConnector.php";
 
 class UserController
 {
-    private $requiredParameters = array('firstName', 'lastName', 'age', 'country', 'birthday', 'email', 'login', 'password');
+    private $requiredParameters = array('firstName', 'lastName', 'country', 'birthday', 'email', 'password');
 
     public function register($request)
     {
@@ -14,11 +14,9 @@ class UserController
         if ($this->isValid($params)) {
             $user = new User($params["firstName"],
                 $params["lastName"],
-                $params["age"],
                 $params["country"],
                 $params["birthday"],
                 $params["email"],
-                $params["login"],
                 $params["password"]);
 
             $db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
@@ -33,15 +31,13 @@ class UserController
 
     private function generateInsertQuery($user)
     {
-        $query =  "INSERT INTO user (firstName, lastName, age, country, birthday, email, login, password) VALUES ('".
+        $query =  "INSERT INTO user (firstName, lastName, country, birthday, email, password) VALUES ('".
             $user->get_firstNameUser()."','".
             $user->get_lastNameUser()."','".
-            $user->get_ageUser()."','".
             $user->get_countryUser()."','".
             $user->get_birthdayUser()."','".
 			$user->get_emailUser()."','".
-			$user->get_loginUser()."','".
-            $user->get_passwordUser()."')";
+          	$user->get_passwordUser()."')";
 		// var_dump($query);
 		return $query;
     }
@@ -52,7 +48,7 @@ class UserController
 		$crit = $this->generateCriteria($params);
 		$db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
 		$conn = $db->getConnection();
-		$result = $conn->query("SELECT firstName, lastName, age, country, birthday, email, login, password FROM user WHERE ".$crit);
+		$result = $conn->query("SELECT id, firstName, lastName, country, birthday, email, password FROM user WHERE ".$crit);
 		//foreach($result as $row) 
 		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -60,69 +56,53 @@ class UserController
 	private function generateCriteria($params) 
 	{
 		$criteria = "";
-		foreach($params as $key => $value)
-		{
-			$criteria = $criteria.$key." LIKE '%".$value."%' OR ";
-		}
-		return substr($criteria, 0, -4);	
-	}
-
-	public function update($request)
-	{
-		if(!empty($_GET["id"]) && !empty($_GET["firstName"]) && !empty($_GET["lastName"]) && !empty($_GET["age"]) &&
-            !empty($_GET["country"]) && !empty($_GET["birthday"]) && !empty($_GET["email"]) && !empty($_GET["login"]) && !empty($_GET["password"])) {
-
-            $name = addslashes(trim($_GET["firstName"]));
-            $secondName = addslashes(trim($_GET["lastName"]));
-            $age = addslashes(trim($_GET["age"]));
-            $country = addslashes(trim($_GET["country"]));
-            $birthday = addslashes(trim($_GET["birthday"]));
-            $email = addslashes(trim($_GET["email"]));
-            $login = addslashes(trim($_GET["login"]));
-            $password = addslashes(trim($_GET["password"]));
-            $id = addslashes(trim($_GET["id"]));
-
-            $params = $request->get_params();
-            $db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
-            $conn = $db->getConnection();
-            $result = $conn->prepare("UPDATE user SET firstName=:name, lastName=:secondName, age=:age, country=:country, birthday=:birthday,
-            email=:email, login=:login, password=:password WHERE id=:id");
-            $result->bindValue(":name", $name);
-            $result->bindValue(":secondName", $secondName);
-            $result->bindValue(":age", $age);
-            $result->bindValue(":country", $country);
-            $result->bindValue(":birthday", $birthday);
-            $result->bindValue(":email", $email);
-            $result->bindValue(":login", $login);
-            $result->bindValue(":password", $password);
-            $result->bindValue(":id", $id);
-            $result->execute();
-            if ($result->rowCount() > 0){
-                echo "Usuário alterado com sucesso!";
-            } else {
-                echo "Usuário não atualizado";
+        $retorno = "";
+        if(count($params) == 2){
+            foreach ($params as $key => $value) {
+                $criteria = $criteria . $key . " = '" . $value . "' AND ";
+                $retorno = substr($criteria, 0, -5);
+            }
+        }else {
+            foreach ($params as $key => $value) {
+                $criteria = $criteria . $key . " LIKE '%" . $value . "%' OR ";
+                $retorno = substr($criteria, 0, -4);
             }
         }
+		return 	$retorno;
 	}
+
+    public function update($request)
+    {
+        $params = $request->get_params();
+        $db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
+        $conn = $db->getConnection();
+        return $conn->query($this->generateUpdateQuery($params));
+    }
+
+    private function generateUpdateQuery($params)
+    {
+        $crit = $this->generateUpdateCriteria($params);
+        return "UPDATE user SET " . $crit . " WHERE firstName='".$params["firstName"]."'OR lastName='".$params['lastName']."'OR country = '".$params['country']."'";
+
+    }
+
+    private function generateUpdateCriteria($params)
+    {
+        $criteria = "";
+        foreach ($params as $key => $value) {
+            $criteria = $criteria . $key . " = '" . $value . "' ,";
+        }
+        return substr($criteria, 0, -2);
+    }
 
     public function delete($request)
     {
-        if (!empty($_GET["id"])){
-
-            $id = addslashes(trim($_GET["id"]));
-
-            $params = $request->get_params();
-            $db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
-            $conn = $db->getConnection();
-            $result = $conn->prepare("DELETE FROM user WHERE id = ?");
-            $result->bindValue(1, $id);
-            $result->execute();
-            if ($result->rowCount() > 0){
-                echo "Usuário deletado com sucesso!";
-            } else {
-                echo "Usuário não deletado";
-            }
-        }
+        $params = $request->get_params();
+        $db = new DatabaseConnector("localhost", "network", "mysql", "", "root", "");
+        $conn = $db->getConnection();
+        $result = $conn->query("DELETE FROM user WHERE id = ".$params["id"]);
+        //foreach($result as $row)
+        return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     private function isValid($parameters)

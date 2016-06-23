@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html lang="pt-br" ng-app="friendsUser">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" media="screen" type="text/css" href="../css/initial.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/validation.js"></script>
+    <script type="text/javascript">
+        function deleteUser(){
+            if(confirm("Are you sure?")){
+                alert('Friend has been deleted');
+                window.location.reload();
+            }
+        }
+    </script>
+</head>
+<body id="box" ng-controller="friendsUserCtrl">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Network</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="initial_page.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="friends_user.html"><span class="glyphicon glyphicon-user"></span> Friends</a></li>
+                <li><a href="photos_user.html"><span class="glyphicon glyphicon-camera"></span> Photos</a></li>
+                <li><a href="groups_user.html"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> Group</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container text-center">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-14">
+                <div class="panel panel-default text-left">
+                    <div class="panel-body">
+                        <label>User's Friends</label><br>
+                        <button data-toggle="modal" data-target="#myModal">Add Friends</button><br><br>
+                        <table class="table table-striped" >
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Country</th>
+                            </tr>
+                            <tr ng-repeat="user in myData">
+                                <td>{{user.firstName}}</td>
+                                <td>{{user.lastName}}</td>
+                                <td>{{user.country}}</td>
+                                <td><a href="updateFriend.html">Update</a></td>
+                                <td><a href="#" onclick="deleteUser()" ng-click="deleteUser(user.id)">Delete</a></td>
+                            </tr>
+                        </table>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Friends</h4>
+                                        </div>
+                                    <div class="modal-body">
+                                        <form method="post" action="../functions/insert_user.php">
+                                            <div class="row">
+                                                <div class="col-sm-12 form-group">
+                                                    <label>First Name:</label>
+                                                    <input type="text" class="form-control" name="firstName" id="first_name"/>
+                                                </div>
+                                                <div class="col-sm-12 form-group">
+                                                    <label>Last Name:</label>
+                                                    <input type="text" class="form-control" name="lastName" id="last_name"/>
+                                                </div>
+                                                <div class="col-sm-12 form-group">
+                                                    <label>Country:</label>
+                                                    <input type="text" class="form-control" name="country" id="country"/>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <b>Copyright © All Rights Reserved, 2016</b>
+</footer>
+</body>
+</html>

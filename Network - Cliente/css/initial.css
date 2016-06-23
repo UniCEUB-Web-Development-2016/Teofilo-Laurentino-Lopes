@@ -1,0 +1,32 @@
+#box{
+    background-color: #d3d3d3;
+}
+
+#photo{
+    width: 90%;
+}
+
+#change{
+    width: 89.9%;
+    padding: 5px;
+    font-size: 100%;
+    text-decoration: none;
+    color: #FFF;
+    background: rgba(0,0,0, 0.8);
+    display: block;
+    margin-left: 5%;
+    margin-top: -1%;
+    text-align: center;
+    float: left;
+}
+
+#footer{
+    font-family: "Trebuchet MS";
+    text-align: center;
+    color: #808080;
+    margin-top: 30%;
+}
+
+#upbtn{
+    margin-left: 79%;
+}

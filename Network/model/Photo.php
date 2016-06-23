@@ -7,7 +7,6 @@ class Photo
 	private $name_album;
 	private $description;
 
-
 	public function __construct($owner, $name_album, $description)
 	{
 		$this->set_ownerPhoto($owner);

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" media="screen" type="text/css" href="../css/initial.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="../js/validation.js"></script>
+</head>
+<body id="box"><br><br>
+<div class="container text-center">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-14">
+                <div class="panel panel-default text-left">
+                    <div class="panel-body">
+                        <h2>Group Update</h2><br>
+                        <form method="post" action="../functions/updateGroup.php">
+                            <div class="row">
+                                <div class="col-sm-12 form-group">
+                                    <label>Group Name:</label>
+                                    <input type="text" class="form-control" name="groupName" id="groupName"/>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <label>Owner:</label>
+                                    <input type="text" class="form-control" name="owner" id="owner"/>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <label>Category:</label>
+                                    <input type="text" class="form-control" name="category" id="category"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <b>Copyright © All Rights Reserved, 2016</b>
+</footer>
+</body>
+</html>

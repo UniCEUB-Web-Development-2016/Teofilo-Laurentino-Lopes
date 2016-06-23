@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="pt-br" ng-app="messageUser">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" media="screen" type="text/css" href="../css/initial.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script type="text/javascript" src="../js/validation.js"></script>
+        <script type="text/javascript">
+            function deleteMessage(){
+                if(confirm("Are you sure?")){
+                    alert('Message has been deleted');
+                    window.location.reload();
+                }
+            }
+        </script>
+    </head>
+<body id="box" ng-controller="messageUserCtrl">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Network</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="initial_page.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="friends_user.html"><span class="glyphicon glyphicon-user"></span> Friends</a></li>
+                <li><a href="photos_user.html"><span class="glyphicon glyphicon-camera"></span> Photos</a></li>
+                <li><a href="groups_user.html"><span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-user"></span> Group</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+            </div>
+    </div>
+</nav>
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-sm-3 well">
+               <img src="../images/perfil.jpg" id="photo">
+        </div>
+        <form method="post" action="../functions/insert_message.php">
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default text-left">
+                            <div class="panel-body">
+                                <label>Status</label><br>
+                                <input type="text" name="user" class="form-control" placeholder="User Poster" ng-model="user">
+                                <textarea class="form-control" rows="3" placeholder="Define what you're thinking in only a word..." name="description" ng-model="description"></textarea><br>
+                                <button type="submit">Publish</button>
+                                    <div ng-repeat="message in myData"><br>
+                                        <b>{{message.user}}<b><br>
+                                        {{message.description}}<br><br>
+                                        <a href="updateMessage.html">Update</a>
+                                        <a href="#" onclick="deleteMessage()" ng-click="deleteMessage(message.id)">Delete</a>
+                                        <hr/>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+    <footer id="footer">
+        <b>Copyright © All Rights Reserved, 2016</b>
+    </footer>
+</body>
+</html>

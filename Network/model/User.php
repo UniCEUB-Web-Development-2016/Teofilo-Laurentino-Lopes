@@ -5,23 +5,18 @@ class User
 
 	private $firstName;
 	private $lastName;
-	private $age;
 	private $country;
 	private $birthday;
 	private $email;
-	private $login;
 	private $password;
 
-
-	public function __construct($firstName, $lastName, $age, $country, $birthday, $email, $login, $password)
+	public function __construct($firstName, $lastName, $country, $birthday, $email, $password)
 	{
 		$this->set_firstNameUser($firstName);
 		$this->set_lastNameUser($lastName);
-		$this->set_ageUser($age);
 		$this->set_countryUser($country);
 		$this->set_birthdayUser($birthday);
 		$this->set_emailUser($email);
-		$this->set_loginUser($login);
 		$this->set_passwordUser($password);
 	}
 
@@ -44,16 +39,6 @@ class User
 	public function get_lastNameUser()
 	{
 		return $this->lastName;
-	}
-
-	private function set_ageUser($age)
-	{
-		$this->age = $age;
-	}
-
-	public function get_ageUser()
-	{
-		return $this->age;
 	}
 
 	private function set_countryUser($country)
@@ -84,16 +69,6 @@ class User
 	public function get_emailUser()
 	{
 		return $this->email;
-	}
-	
-	private function set_loginUser($login)
-	{
-		$this->login = $login;
-	}
-
-	public function get_loginUser()
-	{
-		return $this->login;
 	}
 
 	private function set_passwordUser($password)
